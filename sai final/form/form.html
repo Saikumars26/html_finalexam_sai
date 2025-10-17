@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6fa;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h2 {
+      color: #004aad;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      width: 360px;
+      padding: 20px;
+    }
+
+    .card-header {
+      background-color: #001f66;
+      color: #fff;
+      padding: 10px 15px;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .address-text {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    button {
+      background: #004aad;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #003080;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .password-group {
+      position: relative;
+    }
+
+    .toggle-icon {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      cursor: pointer;
+      color: gray;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Settings</h2>
+
+  <div class="container">
+    <!-- Shipping Address Card -->
+    <div class="card">
+      <div class="card-header">Shipping Address</div>
+      <div class="card-content">
+        <div class="address-text">
+          Sai Sheri<br>
+          2400 SW, Oklahoma City, OK 73112
+        </div>
+        <button onclick="alert('Change Address successful!')">Change Address</button>
+      </div>
+    </div>
+
+    <!-- Change Password Card -->
+    <div class="card">
+      <div class="card-header">Change Password</div>
+      <div class="card-content">
+        <form id="passwordForm">
+          <div class="password-group">
+            <input type="password" id="currentPassword" placeholder="Current Password" />
+            <span class="toggle-icon" onclick="togglePassword('currentPassword', this)">👁️</span>
+          </div>
+
+          <div class="password-group">
+            <input type="password" id="newPassword" placeholder="New Password" />
+            <span class="toggle-icon" onclick="togglePassword('newPassword', this)">👁️</span>
+          </div>
+
+          <div class="password-group">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+            <span class="toggle-icon" onclick="togglePassword('confirmPassword', this)">👁️</span>
+          </div>
+
+          <button type="submit">Change Password</button>
+          <div id="errorMessage" class="error"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(id, icon) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    document.getElementById("passwordForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const current = document.getElementById("currentPassword").value.trim();
+      const newPass = document.getElementById("newPassword").value.trim();
+      const confirm = document.getElementById("confirmPassword").value.trim();
+      const error = document.getElementById("errorMessage");
+
+      if (!current || !newPass || !confirm) {
+        error.textContent = "All fields are required.";
+        return;
+      }
+
+      // Validation rule: 9+ chars, 2 uppercase, 1 special character
+      const uppercaseMatch = (newPass.match(/[A-Z]/g) || []).length >= 2;
+      const specialCharMatch = /[!@#$%^&*(),.?":{}|<>]/.test(newPass);
+
+      if (newPass.length < 9 || !uppercaseMatch || !specialCharMatch) {
+        error.textContent =
+          "Password must have at least 9 characters, 2 uppercase letters, and 1 special character.";
+        return;
+      }
+
+      if (newPass !== confirm) {
+        error.textContent = "New and Confirm passwords do not match.";
+        return;
+      }
+
+      error.style.color = "green";
+      error.textContent = "Password changed successfully!";
+    });
+  </script>
+
+</body>
+</html>

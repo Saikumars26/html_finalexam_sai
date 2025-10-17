@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explore Top 5 — Standalone Map</title>
+  <meta name="description" content="Standalone Google Maps + Places search with type and rating in cards." />
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="./scripts/map.js"></script>
+  <!-- Replace YOUR_API_KEY and enable Maps JavaScript API + Places API -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqSU7isG0YEa6qcG4EnsH_y5dX7LWLu0&libraries=places&callback=initMap"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <h1 style="margin:0">Explore Top 5 Places</h1>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h2>Find places</h2>
+    <div class="searchbar">
+      <label class="visually-hidden" for="q">Search places</label>
+      <input id="q" type="text" placeholder="Search places (e.g., coffee, gym, hospital in Oklahoma City)" aria-label="Search places"/>
+      <button id="search" class="btn" type="button">Search</button>
+    </div>
+
+    <div id="map" role="region" aria-label="Map results"></div>
+    <section id="results" aria-live="polite" aria-label="Top 5 results"></section>
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <p>© 2025 Student Project</p>
+  </footer>
+</body>
+</html>
